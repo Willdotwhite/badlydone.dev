@@ -18,7 +18,10 @@ export function App() {
 
 	function getTimeAsHex() {
 		const date = new Date();
-		return `#${date.getHours().toPrecision(2)}${date.getMinutes().toPrecision(2)}${date.getSeconds().toPrecision(2)}`;
+		const hours = String(date.getHours()).padStart(2, '0');
+		const minutes = String(date.getMinutes()).padStart(2, '0');
+		const seconds = String(date.getSeconds()).padStart(2, '0');
+		return `#${hours}${minutes}${seconds}`;
 	}
 
 	return (

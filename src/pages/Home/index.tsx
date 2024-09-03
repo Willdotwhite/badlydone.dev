@@ -7,7 +7,6 @@ import dotwogamesImage from '../../assets/dotwogames-logo.png';
 import squarepinskiImage from '../../assets/squarepinski-logo.png';
 import githubImage from '../../assets/github-white.png';
 import linkedInImage from '../../assets/linkedin-white.png';
-import {hash} from 'crypto';
 
 export function Home() {
 

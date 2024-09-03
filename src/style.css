@@ -34,6 +34,10 @@ body {
 #app {
 	display: flex;
 	flex-direction: column;
+
+	-webkit-transition: background-color 800ms linear;
+	-ms-transition: background-color 800ms linear;
+	transition: background-color 800ms linear;
 }
 
 main {
