@@ -7,6 +7,7 @@ import dotwogamesImage from '../../assets/dotwogames-logo.png';
 import squarepinskiImage from '../../assets/squarepinski-logo.png';
 import githubImage from '../../assets/github-white.png';
 import linkedInImage from '../../assets/linkedin-white.png';
+import {hash} from 'crypto';
 
 export function Home() {
 
@@ -16,9 +17,9 @@ export function Home() {
 				<SillyTitle />
 			</header>
 			<section class="mb-mid">
-				<ItemCard imgSrc={teamFinderLogo} title="findyourjam.team" subtitle="Open source team building tool" copy="A sidecar website that's helped jammers on the four biggest ever game jams on itch.io. Just promise me you won't read the source code." url="https://findyourjam.team" />
-				<ItemCard imgSrc={dotwogamesImage} title="dotwo.games" subtitle="Mostly terrible games, but who's counting?" copy="It's full of jam games and Unity projects I never figured out how to finish. I have a better system now, but absolutely no time to do gamedev with a baby in the house." url="https://dotwo.games" />
-				<ItemCard imgSrc={squarepinskiImage} title="Squarepinski" subtitle="My one good game (Under development)" copy="A jigsaw puzzle with square pieces. Actually the best game I've ever made. Don't look at the source code for this either. Steam release 2025" url="https://dotwogames.itch.io/squarepinski" />
+				<ItemCard imgSrc={teamFinderLogo} title="findyourjam.team" subtitle="Open source team building tool" copy="A matchmaking website for game jammers that's run alongside the four biggest ever game jams on itch.io.\n2024 record: 39k logins, 1.3k posts, and more than 100k total searches!" url="https://findyourjam.team" />
+				<ItemCard imgSrc={dotwogamesImage} title="dotwo.games" subtitle="My games jam projects and prototypes" copy="A collection of game jam entries and prototypes I didn't have time to finish before the baby arrived!\nExpect long term progress, and see my [soon-to-be-written] thoughts on overcoming prototyping woes!" url="https://dotwo.games" />
+				<ItemCard imgSrc={squarepinskiImage} title="Squarepinski" subtitle="(Under development)" copy="A relaxed jigsaw puzzle game with square pieces. Our GMTK Game Jam 2024 entry, it placed #177 out of 7628.\nDevelopment is ongoing, with a Steam release planned for 2025. Click to play the demo!" url="https://dotwogames.itch.io/squarepinski" />
 			</section>
 			<footer>
 				<ExternCTA imgSrc={githubImage} url="https://github.com/Willdotwhite/" alt="GitHub Profile" />
@@ -73,7 +74,7 @@ function ItemCard({imgSrc, title, subtitle, copy, url}) {
 			</div>
 			<h2>{title}</h2>
 			<h3>{subtitle}</h3>
-			<p class="copy">{copy}</p>
+			{copy.split("\\n").map(((line, index) => <p key={`line-${title}-${index}`} className="copy">{line}</p>))}
 		</a>
 	)
 }
