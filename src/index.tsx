@@ -17,7 +17,8 @@ export function App() {
 	}, [timeAsHex]);
 
 	function getTimeAsHex() {
-		return `#${new Date().toLocaleTimeString().replaceAll(":", "")}`;
+		const date = new Date();
+		return `#${date.getHours().toPrecision(2)}${date.getMinutes().toPrecision(2)}${date.getSeconds().toPrecision(2)}`;
 	}
 
 	return (
