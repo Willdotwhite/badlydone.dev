@@ -4,10 +4,38 @@ section {
 	column-gap: 1.5rem;
 }
 
+#silly-title {
+	font-size: 4rem;
+}
+
+@media (max-width: 611px) {
+	#silly-title {
+		font-size: 2.2rem;
+	}
+}
+
+@media (max-width: 799px) {
+	section {
+		display: block;
+		margin: 0 2em;
+	}
+
+	section > a {
+		display: block;
+		margin-bottom: 4em;
+	}
+
+	section > a > p {
+		margin: 0;
+	}
+
+}
+
+
 footer {
 	width: 180px;
 	margin: 0 auto;
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(2, 1fr);
 	column-gap: 0.5rem;
 }

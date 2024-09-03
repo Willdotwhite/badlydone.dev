@@ -15,16 +15,16 @@ export function App() {
 		return `#${new Date().toLocaleTimeString().replaceAll(":", "")}`;
 	}
 
-	console.log(timeAsHex)
+	document.getElementById('app').style.backgroundColor = timeAsHex
 
 	return (
 		<LocationProvider>
-			<main style={{backgroundColor: `${timeAsHex}`}}>
+			<main>
 				<Router>
 					<Route path="/" component={Home} />
 					<Route default component={NotFound} />
 				</Router>
-				<p style={{fontSize: `0.75rem`}}>The current time colour is: {timeAsHex}</p>
+				<p style={{fontSize: `0.75rem`}}>The current time colour is: {getTimeAsHex()}</p>
 			</main>
 		</LocationProvider>
 	);
