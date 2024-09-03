@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:display=swap');
+
 :root {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
@@ -23,30 +25,6 @@ body {
 	min-height: 100vh;
 }
 
-header {
-	display: flex;
-	justify-content: flex-end;
-	background-color: #673ab8;
-}
-
-header nav {
-	display: flex;
-}
-
-header a {
-	color: #fff;
-	padding: 0.75rem;
-	text-decoration: none;
-}
-
-header a.active {
-	background-color: #0005;
-}
-
-header a:hover {
-	background-color: #0008;
-}
-
 main {
 	flex: auto;
 	display: flex;
@@ -68,3 +46,13 @@ main {
 		background-color: #1a1a1a;
 	}
 }
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Quicksand", sans-serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+}
+
+.mb-big { margin-bottom: 12rem; }
+.mb-mid { margin-bottom: 6rem; }
+.mb-small { margin-bottom: 4rem; }

@@ -1,39 +1,87 @@
-import preactLogo from '../../assets/preact.svg';
 import './style.css';
+import {GetCoordsInUnitCircle} from '../../utils/maths';
+import {useEffect, useState} from 'react';
+
+import squarepinskiImage from '../../assets/squarepinski-logo.png';
+import githubImage from '../../assets/github-white.png';
+import linkedInImage from '../../assets/linkedin-white.png';
 
 export function Home() {
+
 	return (
 		<div class="home">
-			<a href="https://preactjs.com" target="_blank">
-				<img src={preactLogo} alt="Preact logo" height="160" width="160" />
-			</a>
-			<h1>Get Started building Vite-powered Preact Apps </h1>
-			<section>
-				<Resource
-					title="Learn Preact"
-					description="If you're new to Preact, try the interactive tutorial to learn important concepts"
-					href="https://preactjs.com/tutorial"
-				/>
-				<Resource
-					title="Differences to React"
-					description="If you're coming from React, you may want to check out our docs to see where Preact differs"
-					href="https://preactjs.com/guide/v10/differences-to-react"
-				/>
-				<Resource
-					title="Learn Vite"
-					description="To learn more about Vite and how you can customize it to fit your needs, take a look at their excellent documentation"
-					href="https://vitejs.dev"
-				/>
+			<header class="mb-big">
+				<SillyTitle />
+			</header>
+			<section class="mb-mid">
+				<ItemCard imgSrc="" title="findyourjam.team" copy="" url="https://findyourjam.team" />
+				<ItemCard imgSrc="" title="dotwo.games" copy="" url="https://dotwo.games" />
+				<ItemCard imgSrc={squarepinskiImage} title="Squarepinski (under development)" copy="A jigsaw puzzle with square pieces. Steam release 2025." url="https://dotwogames.itch.io/squarepinski" />
 			</section>
+			<footer>
+				<ExternCTA imgSrc={githubImage} url="https://github.com/Willdotwhite/" alt="GitHub Profile" />
+				<ExternCTA imgSrc={linkedInImage} url="https://www.linkedin.com/in/williampaulwhite/" alt="LinkedIn Profile" />
+			</footer>
 		</div>
 	);
 }
 
-function Resource(props) {
+function SillyTitle() {
+	const [titleRedraw, setTitleRedraw] = useState(Math.random());
+
+	useEffect(() => {
+		setInterval(() => setTitleRedraw(Math.random()), 5000)
+	}, [])
+
+	function SillyTitleLetter({char}) {
+		const coords = GetCoordsInUnitCircle()
+		const angleRange = 15;
+		const angle = -angleRange + (Math.random() * angleRange * 2);
+		const scale = 2.5;
+
+		return (
+			<span
+				data-redraw-key={titleRedraw}
+				style={{
+					display: 'inline-block',
+					paddingTop: `${coords.y * scale}px`,
+					paddingRight: `${-coords.x * scale}px`,
+					transform: `rotate(${angle}deg)`
+				}}
+			>
+				<span>{char}</span>
+			</span>
+		)
+	}
+
 	return (
-		<a href={props.href} target="_blank" class="resource">
-			<h2>{props.title}</h2>
-			<p>{props.description}</p>
+		<h1>
+			{'badlydone.dev'.toUpperCase().split('').map((char, index) =>
+				<SillyTitleLetter key={`st-${char}-${index}`} char={char} />
+			)}
+		</h1>
+	)
+}
+
+function ItemCard({imgSrc, title, copy, url}) {
+	return (
+		<a href={url}>
+			<div>
+				<figure>
+					<img src={imgSrc} alt={title} />
+					<figcaption><h2>{title}</h2></figcaption>
+				</figure>
+
+				<p>{copy}</p>
+			</div>
 		</a>
-	);
+	)
+}
+
+function ExternCTA({imgSrc, url, alt}) {
+	return (
+		<a href={url}>
+			<img src={imgSrc} alt={alt} width={32} height={32} />
+		</a>
+	)
 }
