@@ -7,15 +7,18 @@ import {useEffect, useState} from 'react';
 
 export function App() {
 	const [timeAsHex, setTimeAsHex] = useState(getTimeAsHex())
+
 	useEffect(() => {
 		setInterval(() => setTimeAsHex(getTimeAsHex()), 1000)
 	}, []);
 
+	useEffect(() => {
+		document.getElementById('app').style.backgroundColor = timeAsHex
+	}, [timeAsHex]);
+
 	function getTimeAsHex() {
 		return `#${new Date().toLocaleTimeString().replaceAll(":", "")}`;
 	}
-
-	document.getElementById('app').style.backgroundColor = timeAsHex
 
 	return (
 		<LocationProvider>
