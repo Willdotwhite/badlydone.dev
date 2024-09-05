@@ -34,7 +34,7 @@ export function Home() {
 	);
 }
 
-function SillyTitle() {
+export function SillyTitle() {
 	const [titleRedraw, setTitleRedraw] = useState(Math.random());
 
 	useEffect(() => {
@@ -84,7 +84,7 @@ function ItemCard({imgSrc, title, subtitle, copy, url}) {
 	)
 }
 
-function ExternCTA({imgSrc, url, alt}) {
+export function ExternCTA({imgSrc, url, alt}) {
 	return (
 		<a href={url}>
 			<img src={imgSrc} alt={alt} width={32} height={32} />

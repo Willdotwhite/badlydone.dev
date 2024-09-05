@@ -1,0 +1,16 @@
+article {
+
+}
+
+article > section {
+    display: block;
+}
+
+p {
+    text-align: left;
+}
+
+small {
+    display: block;
+    text-align: left;
+}
