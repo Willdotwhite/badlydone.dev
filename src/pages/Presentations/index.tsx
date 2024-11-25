@@ -8,7 +8,7 @@ export function Presentations() {
 
     return (
         <Frame>
-            <section id="profile" class="mb-mid">
+            <section id="presentations" class="mb-mid">
                 <h2>Presentations</h2>
                 <p>This is an archive of presentations and talks I've given since creating this website.</p>
             </section>
