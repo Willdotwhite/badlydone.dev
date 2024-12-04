@@ -1,0 +1,22 @@
+article {
+    max-width: 80%;
+    margin: 0 auto;
+
+    @media (max-width: 611px) {
+        #silly-title {
+            max-width: 100%;
+        }
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+
+    aside.sidebar {
+        padding-left: 2rem;
+        opacity: 0.8;
+        border-left: #cccccc 5px solid;
+    }
+
+}
