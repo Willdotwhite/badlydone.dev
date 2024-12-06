@@ -5,7 +5,7 @@ import { NotFound } from './pages/_404.jsx';
 import './style.css';
 import {useEffect, useState} from 'react';
 import {Presentations} from './pages/Presentations';
-import {VotingDataScience} from './pages/Articles/VotingDataScience';
+import {Article} from './pages/Articles/Article';
 
 export function App() {
 	const [timeAsHex, setTimeAsHex] = useState(getTimeAsHex())
@@ -32,7 +32,7 @@ export function App() {
 				<Router>
 					<Route path="/" component={Home} />
 					<Route path="/presentations" component={Presentations} />
-					<Route path="/articles/voting-data-science" component={VotingDataScience} />
+					<Route path="/articles/voting-data-science" component={Article} />
 					<Route default component={NotFound} />
 				</Router>
 				<p style={{fontSize: `0.75rem`}}>The current time colour is: {getTimeAsHex()}</p>
