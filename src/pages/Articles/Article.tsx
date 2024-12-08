@@ -5,6 +5,7 @@ import {useEffect, useState} from 'react';
 import remarkGfm from 'remark-gfm'
 import SyntaxHighlighter from 'react-syntax-highlighter/src/light';
 import {dark} from 'react-syntax-highlighter/src/styles/hljs';
+import {CollapsableContent} from './_common';
 
 
 export const Article = () => {
@@ -19,7 +20,7 @@ export const Article = () => {
                 .then(text => setContent(text))
         })
 
-    }, [])
+    }, [file])
 
     if (!content) {
         return null;
@@ -35,23 +36,8 @@ export const Article = () => {
                 <Markdown
                     remarkPlugins={[remarkGfm]}
                     components={{
-                        code(props) {
-                            const {children, className, node, ...rest} = props
-                            // const match = /language-(\w+)/.exec(className || '')
-                            return (
-                                <SyntaxHighlighter
-                                    {...rest}
-                                    PreTag="div"
-                                    children={String(children).replace(/\n$/, '')}
-                                    language={"JavaScript"}
-                                    style={dark}
-                                />
-                                // ) : (
-                                //     <code {...rest} className={className}>
-                                //         {children}
-                                //     </code>
-                            )
-                        }
+                        code: CodeBlockComponent,
+                        blockquote: Collapsable
                     }}
                 >
                     {content}
@@ -60,3 +46,27 @@ export const Article = () => {
         </Frame>
     );
 };
+
+const CodeBlockComponent = (props) => {
+    const {children, className, node, ...rest} = props
+
+    return (
+        <SyntaxHighlighter
+            {...rest}
+            PreTag="div"
+            children={String(children).replace(/\n$/, '')}
+            language={"JavaScript"}
+            style={dark}
+        />
+    )
+}
+
+const Collapsable = (props) => {
+    const content = props.children.filter(child => child != "\n")
+    console.log(content)
+    const titleNode = content[0]
+    const contentNodes = content.slice(1, content.length)
+
+    return <CollapsableContent title={titleNode.props.children}>{contentNodes}</CollapsableContent>
+
+}

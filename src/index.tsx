@@ -2,10 +2,10 @@ import { LocationProvider, Router, Route, hydrate, prerender as ssr } from 'prea
 
 import { Home } from './pages/Home';
 import { NotFound } from './pages/_404.jsx';
-import './style.css';
 import {Presentations} from './pages/Presentations';
 import {Article} from './pages/Articles/Article';
 import {Footer} from './pages/_footer';
+import './style.css';
 
 export function App() {
 

@@ -3,6 +3,10 @@ article {
     max-width: 80%;
     margin: 0 auto;
 
+    @media (max-width: 639px) {
+        max-width: 100%;
+    }
+
     @media (max-width: 611px) {
         #silly-title {
             max-width: 100%;
@@ -14,10 +18,18 @@ article {
     }
 
 
-    aside.sidebar {
+    aside {
         padding-left: 2rem;
         opacity: 0.8;
         border-left: #cccccc 5px solid;
     }
 
+    pre {
+        max-width: 100%;
+    }
+
+    a {
+        font-weight: bold;
+        text-decoration: underline;
+    }
 }

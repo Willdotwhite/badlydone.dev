@@ -1,4 +1,3 @@
-import '../style.css';
 import {GetCoordsInUnitCircle} from '../utils/maths';
 import {useEffect, useState} from 'react';
 
