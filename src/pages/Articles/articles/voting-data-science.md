@@ -218,10 +218,10 @@ This was a bit more involved (read: I had a proper data scientist help me with t
 
 | Theme (+1 when row appears above column) | The Other Way | Divide and conquer | Return to Sender | ... |
 |------------------------------------------|---------------|--------------------|------------------|-----|
-| The Other Way                            | x             | -1, -1, 1          | -1, 1, -1, 1     |     |
-| Divide and conquer                       | 1, 1, -1      | x                  | -1               |     |
-| Return to Sender                         | 1, -1, 1, -1  | 1                  | x                |     |
-| ...                                      |               |                    |                  |     |
+| The Other Way                            | x             | -1, -1, 1          | -1, 1, -1, 1     | ... |
+| Divide and conquer                       | 1, 1, -1      | x                  | -1               | ... |
+| Return to Sender                         | 1, -1, 1, -1  | 1                  | x                | ... |
+| ...                                      | ...           | ...                | ...              | ... |
 
 For every theme, we calculate how often it appeared _above_ every other theme, regardless of the specific position of
 that theme in the list. The thinking being, the theme which comes out on top most consistently against other themes

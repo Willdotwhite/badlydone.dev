@@ -33,4 +33,20 @@ article {
         font-weight: bold;
         text-decoration: underline;
     }
+
+    table {
+        table-layout: auto;
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px white solid;
+
+        thead {
+            border-bottom: 1px #888888 solid;
+        }
+
+        tr, th, td {
+            padding: 8px;
+            min-width: 40px;
+        }
+    }
 }
