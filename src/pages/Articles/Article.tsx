@@ -23,7 +23,7 @@ export const Article = () => {
     }, [file])
 
     if (!content) {
-        return null;
+        return <p>&nbsp;</p>;
     }
 
     return (
