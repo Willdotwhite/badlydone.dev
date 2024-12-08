@@ -1,8 +1,8 @@
 import {Frame} from '../_frame';
-import Markdown from 'react-markdown'
-import './articles.css'
+import Markdown from 'react-markdown';
+import './articles.css';
 import {useEffect, useState} from 'react';
-import remarkGfm from 'remark-gfm'
+import remarkGfm from 'remark-gfm';
 import SyntaxHighlighter from 'react-syntax-highlighter/src/light';
 import {dark} from 'react-syntax-highlighter/src/styles/hljs';
 import {CollapsableContent} from './_common';
@@ -50,20 +50,29 @@ export const Article = () => {
 const CodeBlockComponent = (props) => {
     const {children, className, node, ...rest} = props
 
+    console.log(children);
+    const isInline = !(children?.includes('\n'));
+
     return (
         <SyntaxHighlighter
             {...rest}
-            PreTag="div"
+            PreTag={isInline ? 'div' : 'span'}
             children={String(children).replace(/\n$/, '')}
             language={"JavaScript"}
             style={dark}
+            showLineNumbers={!isInline}
+            lineNumberStyle={{opacity: 0.5}}
+            customStyle={{
+                display: isInline ? 'inline' : 'block',
+                padding: isInline ? '0 0.25em' : '0.5em',
+            }}
         />
     )
 }
 
 const Collapsable = (props) => {
     const content = props.children.filter(child => child != "\n")
-    console.log(content)
+
     const titleNode = content[0]
     const contentNodes = content.slice(1, content.length)
 
