@@ -25,7 +25,7 @@ function SillyTitle() {
     const [titleRedraw, setTitleRedraw] = useState(Math.random());
 
     useEffect(() => {
-        setInterval(() => setTitleRedraw(Math.random()), 5000)
+        setInterval(() => setTitleRedraw(Math.random()), 1000)
     }, [])
 
     function SillyTitleLetter({char}) {
