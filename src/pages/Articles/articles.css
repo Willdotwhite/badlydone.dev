@@ -49,4 +49,8 @@ article {
             min-width: 40px;
         }
     }
+
+    hr {
+        margin: 5rem 0;
+    }
 }

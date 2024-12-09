@@ -3,8 +3,8 @@ import Markdown from 'react-markdown';
 import './articles.css';
 import {useEffect, useState} from 'react';
 import remarkGfm from 'remark-gfm';
-import SyntaxHighlighter from 'react-syntax-highlighter/src/light';
-import {dark} from 'react-syntax-highlighter/src/styles/hljs';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import {monokai as theme} from 'react-syntax-highlighter/src/styles/hljs';
 import {CollapsableContent} from './_common';
 
 
@@ -50,7 +50,9 @@ export const Article = () => {
 const CodeBlockComponent = (props) => {
     const {children, className, node, ...rest} = props
 
-    console.log(children);
+    const match = /language-(\w+)/.exec(className || '');
+    const language = match ? match[1] : 'text';
+    console.log('language', language);
     const isInline = !(children?.includes('\n'));
 
     return (
@@ -58,8 +60,8 @@ const CodeBlockComponent = (props) => {
             {...rest}
             PreTag={isInline ? 'div' : 'span'}
             children={String(children).replace(/\n$/, '')}
-            language={"JavaScript"}
-            style={dark}
+            language={language}
+            style={theme}
             showLineNumbers={!isInline}
             lineNumberStyle={{opacity: 0.5}}
             customStyle={{

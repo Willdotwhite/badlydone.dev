@@ -40,7 +40,6 @@ from the pool, and they rank them from best to worst.
 [NOTE: Detail on how voting works]
 
 > ## What Do You Mean By "Theme" Anyway?
-> ## What Do You Mean By "Theme" Anyway?
 >
 > The theme for a game jam is the inspiration for the games that people are making - it can be basically anything, but
 > the best themes straddle the line between "vague enough to give developers creative control" and "limiting enough that
@@ -75,9 +74,21 @@ How do you pick between a theme which gets four 5 star votes and a theme which g
 
 Well, let's start simple and see where that gets us.
 
+---
+
 ## Trying Stuff And Seeing Why It's Garbage
 
 ### Attempt The First: Raw Score
+
+Approach:
+
+```kotlin
+for (theme in themes) {
+    theme.score = theme.votes.sumOf { it.score }
+}
+
+val winningTheme = themes.maxBy { it.score }
+```
 
 Results:
 
@@ -91,13 +102,6 @@ Results:
 | ...               | ...   | ...                                  |
 | (Redacted)        | -27   | 0, 0, -1, -3, -3, -4, -4, -4, -4, -4 |
 
-```
-for (theme in themes) {
-	theme.score = sumOf(theme.votes[].score)
-}
-
-winningTheme = maxOf(themes by score)
-```
 
 Get all the votes for each theme, sum them together, take the theme with the highest total.
 
@@ -105,26 +109,29 @@ Quick, simple, easy, and hideously biased.
 
 Why? Well, indulge me a quick sidebar:
 
-### Data Problem #2: The Enormous Range Of Votes Cast
+> ### Data Problem #2: The Enormous Range Of Votes Cast
+>
+> Each voter got their themes in the laziest way I could think of:
+>
+> ```
+> random = Random(userId)
+> themes = database.getAllThemes().shuffle(random).subList(0, 10)
+> ```
+>
+> By using the `userId` to seed the PRNG we should be sure each voter always saw the same ten themes. We assumed this
+> would lead to a broadly even distribution of votes, which it did:
+>
+> [GRAPH]
+>
+> The problem here is that because we have so many themes, there just weren't enough votes to go around. That normal
+> distribution peaks around 4.5 votes per theme, which just isn't very much information at all.
+>
+> [Example of two themes and votes cast]
+>
+**TLDR: Because the themes have wildly different numbers of votes, the raw score biased too heavily for themes that
+just happened to be seen more.**
 
-Each voter got their themes in the laziest way I could think of:
-
-```
-random = Random(userId)
-themes = database.getAllThemes().shuffle(random).subList(0, 10)
-```
-
-By using the `userId` to seed the PRNG we should be sure each voter always saw the same ten themes. We assumed this
-would lead to a broadly even distribution of votes, which it did:
-
-[GRAPH]
-
-The problem here is that because we have so many themes, there just weren't enough votes to go around. That normal
-distribution peaks around 4.5 votes per theme, which just isn't very much information at all.
-
-[Example of two themes and votes cast]
-
-**Summary**: Raw score biased too heavily for themes that just happened to be seen more.
+---
 
 ### Attempt The Second: Average Score
 
@@ -138,13 +145,15 @@ The results:
 ```
 
 Hmm. Well those certainly are _different_, but I'm a bit concerned we've gone too far in the other direction; instead of
-biasing towards themes that happened to be seen by lots of people, it looks like we're now biasing towards themes that (
-by chance) happened to only be seen by a small number of people who really liked the theme.
+biasing towards themes that happened to be seen by lots of people, it looks like we're now biasing towards themes that
+(by chance) happened to only be seen by a small number of people who really liked the theme.
 
 If all votes had been seen by 10, 20, 50 people, then I'd be a bit more relaxed about this. But two +5 votes defining
 the "best theme" doesn't quite add up; we've swung too far in the other direction.
 
 Maybe we can adjust for how many votes each theme got?
+
+---
 
 ### Attempt The Second-Point-Two: Weighted Average Score
 
@@ -161,51 +170,56 @@ needed.
 
 Trying to figure out what a "good" vote was highlighted the two major fallacies I'd not address up until this point:
 
-### Data Problem #3: The Scores Don't Mean Shit
+> ### Data Problem #3: The Scores Don't Mean Shit
+>
+> As mentioned at the top, everyone's ranked votes were submitted from +5 to -4 (no, I don't remember why we did this).
+> The ranked voting system means all the votes are submitted relative to each other; there's no way real way to have
+> comparable scores between themes (and between people).
+>
+> What do I mean by that?
+>
+> If someone gets four brilliant themes in their selection, the scores those brilliant theme will be given are +5, +4,
+> +3,
+> and +2, and so on.
+>
+> If someone gets one excellent theme, one ok theme, and a handful of complete duds? You guessed it: +5, +4, +3 and so
+> on.
+>
+> And even worse: if someone gets one "meh" theme and nine complete stinkers? You better believe those stinkers are
+> scoring just as highly as someone else's 2nd/3rd/4th votes.
 
-As mentioned at the top, everyone's ranked votes were submitted from +5 to -4 (no, I don't remember why we did this).
-The ranked voting system means all the votes are submitted relative to each other; there's no way real way to have
-comparable scores between themes (and between people).
+> ### Data Problem #3.2: You Can't Do Maths On Relative Numbers
+>
+> I expect any seasoned data scientists reading have been waiting for this clanger to drop for some time now: the
+> numbers
+> are all relative, I shouldn't be trying to directly compare them. If my 3rd place vote was great but not quite
+> excellent, and your 3rd place was the ok-ist of a mediocre bunch, why are we trying to equate those votes together?
+>
+> Moreover, consider this:
+>
+> ```
+> "theme": "Nothing But Crabs"
+> "votes": [
+> 	{
+> 		"first": "user-id-1",
+> 		"second": 5
+> 	},
+> 	{
+> 		"first": "user-id-2",
+> 		"second": 3
+> 	},
+> 	{
+> 		"first": "user-id-3",
+> 		"second": 3
+> 	}
+> ]
+> ```
+>
+> User 1 ranked this theme as their top pick, that's not too troublesome.
+>
+> Users 2 and 3 voted them in the same place, but... are they the same? I don't think we can say that.
 
-What do I mean by that?
-
-If someone gets four brilliant themes in their selection, the scores those brilliant theme will be given are +5, +4, +3,
-and +2, and so on.
-
-If someone gets one excellent theme, one ok theme, and a handful of complete duds? You guessed it: +5, +4, +3 and so on.
-
-And even worse: if someone gets one "meh" theme and nine complete stinkers? You better believe those stinkers are
-scoring just as highly as someone else's 2nd/3rd/4th votes.
-
-### Data Problem #3.2: You Can't Do Maths On Relative Numbers
-
-I expect any seasoned data scientists reading have been waiting for this clanger to drop for some time now: the numbers
-are all relative, I shouldn't be trying to directly compare them. If my 3rd place vote was great but not quite
-excellent, and your 3rd place was the ok-ist of a mediocre bunch, why are we trying to equate those votes together?
-
-Moreover, consider this:
-
-```
-"theme": "Nothing But Crabs"
-"votes": [
-	{
-		"first": "user-id-1",
-		"second": 5
-	},
-	{
-		"first": "user-id-2",
-		"second": 3
-	},
-	{
-		"first": "user-id-3",
-		"second": 3
-	}
-]
-```
-
-User 1 ranked this theme as their top pick, that's not too troublesome.
-
-Users 2 and 3 voted them in the same place, but... are they the same? I don't think we can say that.
+---
 
 ### Attempt I Don't Know Which: Relative Positions Table
 
@@ -232,14 +246,14 @@ other themes, something something something.
 
 The pseudocode looks like this:
 
-```
-dataTable: Map<Pair<String, String>, List<Int>>
+```kotlin
+val dataTable: Map<Pair<String, String>, List<Int>> = builtAsThatTableAbove()
 
 for (voteX in allVotesCast) {
     for (voteY in allVotesCast) {
         if (voteX.themeId == voteY.themeId) { continue }
 
-        comparativeVotes = dataTable[voteX.themeId to voteY.themeId]
+        val comparativeVotes = dataTable[voteX.themeId to voteY.themeId]
         comparativeVotes.add(if (voteX.score > voteY.score) 1 else -1)
     }
 }
@@ -248,23 +262,24 @@ for (voteX in allVotesCast) {
 
 This table looks like this:
 
+(I've reduced the UUIDs down to the first segment for readability)
+
 ```
-0 = "(16ec8df0-876f-4cdf-96e9-17071950632a, 4aa5d0e0-b5c4-4341-9efe-7949538011e5): [1, -1]"
-1 = "(16ec8df0-876f-4cdf-96e9-17071950632a, 5df19fac-e046-4570-a26e-b0f2807d9067): [1, 1]"
-2 = "(16ec8df0-876f-4cdf-96e9-17071950632a, be720f3f-dcb8-40f5-8eab-d4c059f9874f): [1]"
-3 = "(16ec8df0-876f-4cdf-96e9-17071950632a, bda40ad7-0e66-4102-a41d-4825b99f465f): [1]"
-4 = "(16ec8df0-876f-4cdf-96e9-17071950632a, c4c4e931-1c25-4da1-8218-b998c1b61b19): [1]"
-5 = "(16ec8df0-876f-4cdf-96e9-17071950632a, 08390b61-b368-49f4-a763-260bc7e579c8): [1]"
-6 = "(16ec8df0-876f-4cdf-96e9-17071950632a, 00adf4ab-acec-491a-8e71-ee4677848d04): [1]"
-7 = "(16ec8df0-876f-4cdf-96e9-17071950632a, 5148534a-afa4-4779-9b6f-e3d24d27d29a): [1]"
+0 = "(16ec8df0, 4aa5d0e0): [1, -1]"
+1 = "(16ec8df0, 5df19fac): [1, 1]"
+2 = "(16ec8df0, be720f3f): [1]"
+3 = "(16ec8df0, bda40ad7): [1]"
+4 = "(16ec8df0, c4c4e931): [1]"
+5 = "(16ec8df0, 08390b61): [1]"
+6 = "(16ec8df0, 00adf4ab): [1]"
+7 = "(16ec8df0, 5148534a): [1]"
 ```
 
-So comparing `16ec8df0-876f-4cdf-96e9-17071950632a` to `4aa5d0e0-b5c4-4341-9efe-7949538011e5` ("Stupid applications of
-interesting technology" to "Combination"), there is one instance where `16ec` ranked higher than `4aa5` and one instance
-where it ranked lower.
+So comparing `16ec8df0` ("Stupid applications of interesting technology") to `4aa5d0e0` ("Combination"), there is one
+instance where `16ec8df0` ranked higher than `4aa5d0e0` and one instance where it ranked lower.
 
-When comparing `16ec` to `5df19fac-e046-4570-a26e-b0f2807d9067` ("Out of reach"), 100% of (both) instances where the two
-themes appeared on the same list, `16ec` ranked more highly.
+When comparing `16ec8df0` to `5df19fac` ("Out of reach"), 100% of (both) instances where the two
+themes appeared on the same list, `16ec8df0` ranked more highly.
 
 The theme that comes out on top compared to the most other themes, most often, seems like a strong contender for the
 best theme.
@@ -288,6 +303,8 @@ The theme it gives us?
 Hmm. High average score, but very low total score. It appeared a total of 27 times compared to other themes. Of the 223
 themes, the average is 47.
 
+---
+
 ## Attempt The Last: Plackett-Luce model
 
 I'm on shaky ground here; throughout this process a wonderful colleague of mine Hollie was supporting me as I figured
@@ -297,6 +314,8 @@ Hollie DM'd me saying "Hey, I tried this model I found online, what do you think
 The best explanation I found of how the Plackett-Luce model works was
 by [this post by Statistical Odds & Ends](https://statisticaloddsandends.wordpress.com/2024/04/24/what-is-the-plackett-luce-model/),
 which I highly recommend giving a read.
+
+---
 
 ## Conclusion
 
