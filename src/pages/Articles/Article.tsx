@@ -37,7 +37,8 @@ export const Article = () => {
                     remarkPlugins={[remarkGfm]}
                     components={{
                         code: CodeBlockComponent,
-                        blockquote: Collapsable
+                        blockquote: Collapsable,
+                        table: ScrollableTable,
                     }}
                 >
                     {content}
@@ -81,3 +82,13 @@ const Collapsable = (props) => {
     return <CollapsableContent title={titleNode.props.children}>{contentNodes}</CollapsableContent>
 
 }
+
+const ScrollableTable = (props) => {
+    return (
+        <div style={{overflowY: 'scroll', maxWidth: '100%'}}>
+            <table>
+                {props.children}
+            </table>
+        </div>
+    );
+};
