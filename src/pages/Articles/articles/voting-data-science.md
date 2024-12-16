@@ -414,8 +414,6 @@ The results:
 | ...                          | ...                        |
 | "" (This came last here too) | ???                        |
 
-(Ed: I still need to run it on my machine and validate the output weights to see how close they all were.)
-
 So while there's a lot more black box magic than I'd care for, it's very gratifying to see that the order is extremely
 close to the pairwise list above.
 
@@ -440,7 +438,5 @@ able to try doing this whole theme-ranking thing again in the future at least!
 
 Oh, and for the next GMTK Patron jam we hold? Either people can vote on as many themes as they want, or I'm finding
 a benevolent dictator to just pick their favourite from a shortlist.
-
-[Ed: this is all awful]
 
 Until next time!
