@@ -29,10 +29,6 @@ export const Article = () => {
     return (
         <Frame>
             <article>
-                <div style={{paddingBottom: 16, borderBottom: "2px solid #FFF"}}>
-                    This page is a work in progress - both the content and building this page from a Markdown file on
-                    page load.
-                </div>
                 <Markdown
                     remarkPlugins={[remarkGfm]}
                     components={{
