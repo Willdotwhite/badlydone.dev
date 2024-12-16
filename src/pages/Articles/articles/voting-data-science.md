@@ -68,13 +68,12 @@ themes artificially limited how many votes we could spread around. Similar probl
 ### Data Problem #1: We had ~120 people voting on ~240 themes
 
 By limiting users to 10 themes to vote across, we've massively limited how many votes each theme can get. For the 200+
-themes in the pool, the most votes a specific theme got was _10_.
+themes in the pool, the most votes a specific theme got was _11_.
 
-The average number of votes each theme got was XXX.
+The **mean** number of votes each theme got was 5.8 - which, honestly, was more than I'd expected from having so many
+themes in scope. As you might imagine, this left me with some pretty suspect numbers.
 
-As you might imagine, this left me with some pretty suspect numbers.
-
-How do you pick between a theme which gets four 5 star votes and a theme which gets ten votes of 3, 4, 5?
+How do you pick between a theme which gets four 5-star votes and a theme which gets ten votes of 3, 4, 5?
 
 Well, let's start simple and see where that gets us.
 
@@ -128,7 +127,7 @@ Why? Well, indulge me a quick sidebar:
 > By using the `userId` to seed the PRNG we should be sure each voter always saw the same ten themes. We assumed this
 > would lead to a broadly even distribution of votes, which it did:
 >
-> [GRAPH]
+> ![A normal distribution that highly skews to 5 votes per theme](/articles/number-of-votes-per-theme.png "Number of votes per theme")
 >
 > The problem here is that because we have so many themes, there just weren't enough votes to go around. That normal
 > distribution peaks around 4.5 votes per theme, which just isn't very much information at all.
@@ -277,7 +276,8 @@ that theme in the list. The thinking being, the theme which comes out on top mos
 would be a strong theme suggestion, even if it didn't always get the highest score possible.
 
 What we then do is sum up each row of the table: this gives us a numeric score for how often this theme appeared above
-other themes, something something something.
+other themes, although I'm honestly not sure what specific terms we can nail down for this! At this point in the hazy
+world of Data Science, I've completely lost track of what technical terms exist, or if I'm just doing... stuff!
 
 The pseudocode looks like this:
 
