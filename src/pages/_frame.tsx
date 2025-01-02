@@ -8,13 +8,16 @@ export function Frame(props) {
 
     return (
         <div class="home">
-            <header class="mb-big">
+            <header class="mb-mid">
                 <SillyTitle />
             </header>
+            <hr className="mb-mid" />
             {props.children}
+            <hr className="mb-mid" />
             <footer>
                 <ExternCTA imgSrc={githubImage} url="https://github.com/Willdotwhite/" alt="GitHub Profile" />
-                <ExternCTA imgSrc={linkedInImage} url="https://www.linkedin.com/in/williampaulwhite/" alt="LinkedIn Profile" />
+                <ExternCTA imgSrc={linkedInImage} url="https://www.linkedin.com/in/williampaulwhite/"
+                           alt="LinkedIn Profile" />
             </footer>
         </div>
     );

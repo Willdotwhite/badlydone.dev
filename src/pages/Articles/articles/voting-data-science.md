@@ -421,9 +421,9 @@ This does make a lot of sense, considering that the Plackett-Luce model is a lis
 Bradley-Terry model, which I may or may not have built (or possibly just approximated) in the previous step.
 
 Given that I'm only looking to find the single "best" theme to become the theme for the jam, and one theme in particular
-topped the charts in everything but raw score, it seems like we've got a strong candidate: "Breaking the rules".
+topped the charts in everything but raw score, it seems like we've got a strong candidate: "Bending the rules".
 
-And, bringing the human factor back into things, what's my gut feel evaluation? It's a good theme!
+And, bringing the human factor back into things, what's my gut feel evaluation? It's a good theme! Therefore...
 
 ## The Theme For The First GMTK Patron Jam Is... 'Bending The Rules'!
 
