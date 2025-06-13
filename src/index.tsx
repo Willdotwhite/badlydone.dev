@@ -5,14 +5,15 @@ import { NotFound } from './pages/_404.jsx';
 import {Presentations} from './pages/Presentations';
 import {Article} from './pages/Articles/Article';
 import {Footer} from './pages/_footer';
+import {Redirect} from './pages/redirect';
 import './style.css';
 
 export function App() {
-
 	return (
 		<LocationProvider>
 			<main>
 				<Router>
+					<Route path="/google-form-redirect" component={Redirect} />
 					<Route path="/" component={Home} />
 					<Route path="/presentations" component={Presentations} />
 					<Route path="/articles/voting-data-science" component={Article} />
