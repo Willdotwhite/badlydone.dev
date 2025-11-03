@@ -23,14 +23,14 @@ export function Home() {
 			</section>
 			<section class="mb-mid">
 				<ItemCard imgSrc={teamFinderLogo} title="findyourjam.team" subtitle="Open source team building tool"
-						  copy="A matchmaking website for game jammers that's run alongside the four biggest ever game jams on itch.io.\n2024 record: 39k logins, 1.3k posts, and more than 100k total searches!"
+                          copy="A matchmaking website for game jammers that's run alongside the four biggest ever game jams on itch.io.\n2025 record: 59k logins, >1k posts, and more than 250k total searches!"
 						  url="https://findyourjam.team" />
-				<ItemCard imgSrc={dotwogamesImage} title="dotwo.games" subtitle="My games jam projects and prototypes"
-						  copy="A collection of game jam entries and prototypes I didn't have time to finish before the baby arrived!\nExpect long term progress, and see my [soon-to-be-written] thoughts on overcoming prototyping woes!"
+                <ItemCard imgSrc={dotwogamesImage} title="dotwo.games" subtitle="My games (one good, many bad)"
+                          copy="A collection of game jam entries and prototypes I didn't have time to finish before becoming a dad!\nExpect slow progress, and see my soon(ish)-to-be-written thoughts on overcoming prototyping woes!"
 						  url="https://dotwo.games" />
-				<ItemCard imgSrc={squarepinskiImage} title="Squarepinski" subtitle="(Under development)"
-						  copy="A relaxed jigsaw puzzle game with square pieces. Our GMTK Game Jam 2024 entry, it placed #177 out of 7628.\nDevelopment is ongoing, with a Steam release planned for 2025. Click to play the demo!"
-						  url="https://dotwogames.itch.io/squarepinski" />
+                <ItemCard imgSrc={squarepinskiImage} title="Squarepinski" subtitle="Release date: 1st December!"
+                          copy="A relaxed jigsaw puzzle game with square pieces. Our GMTK Game Jam 2024 entry, it placed #177 out of 7628.\nDevelopment is nearly done, the Steam release planned for 2025. Click to play the Steam demo!"
+                          url="https://store.steampowered.com/app/3819570/Squarepinski_Demo/" />
 			</section>
 
 			<hr className="mb-mid" />
