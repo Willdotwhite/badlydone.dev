@@ -1,0 +1,176 @@
+---
+layout: default
+title: "BADLYDONEDEV"
+site_title: "Welcome! | badlydone.dev"
+email: will@dotwo.games
+description: "A portfolio site you probably shouldn't be reading"
+path: /
+---
+<div aria-hidden="true" class="starfield" id="starfield"></div>
+
+<div class="page-wrapper">
+    <div aria-hidden="true" class="marquee-bar">
+        <span class="marquee-text">*** WELCOME TO THE WORLD WIDE WEB *** I'M SO HAPPY YOU'RE HERE! *** THIS SITE IS BEST VIEWED WITH A SENSE OF CHILDLIKE GLEE *** I HOPE I REMEMBER TO KEEP THIS UP TO DATE *** MADE WITH <span
+                style="text-decoration: line-through">NOTEPAD</span> INTELLIJ IDEA, BECAUSE SOMETIMES THE FUTURE IS JUST PLAIN BETTER***</span>
+    </div>
+
+    <header class="title-area">
+        <span aria-level="1" class="title-fire" role="heading">badlydonedev</span>
+        <div class="subtitle">* a man who cannot design and will not let that stop him *</div>
+    </header>
+
+    <div aria-label="Visitor counter showing 4,738 visitors" class="visitor-counter">
+        <div class="counter-label">You are visitor number:</div>
+        <div aria-label="4738" class="counter-digits" id="counter-digits-parent" role="img">
+            <!-- <span class="counter-digit">___</span>-->
+        </div>
+        <p style="font-size: 0.6rem">(this is a complete lie, this website tracks nothing)</p>
+    </div>
+
+    <main id="main">
+        <div class="welcome-text">
+            <p>Hey there! I'm Will. Welcome to my website, sorry about the eye strain :P</p>
+            <p aria-hidden="true" class="cool-badge">★</p>
+            <p>By day I help build the ML platform for Search for the BBC. By night I make games (tiredly), play games
+                (tiredly), and try to be a dad to a toddler set to 100% CPU.</p>
+            <p aria-hidden="true" class="cool-badge">★</p>
+            <p>Grab a seat, check out my projects, and sign my guestbook before you leave ok?? <span aria-hidden="true">:~)</span>
+            </p>
+            <p style="font-size: 0.6rem">(when it exists [╥﹏╥])</p>
+        </div>
+
+        <hr aria-hidden="true" class="fancy">
+
+        <h2 class="section-header"><span aria-hidden="true" class="deco">★</span> MY COOL PROJECTS <span aria-hidden="true"
+                                                                                                         class="deco">★</span>
+        </h2>
+
+        <table class="projects-table" role="table">
+            <thead>
+            <tr>
+                <th scope="col">&lt;project&gt;</th>
+                <th scope="col">&lt;description&gt;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <a href="https://store.steampowered.com/app/3600120/Squarepinski/">Squarepinski</a>
+                    <span class="new-badge">On Sale!</span>
+                </td>
+                <td class="project-desc">A cosy but challenging puzzle game that reinvents the classic jigsaw.<br/>Currently
+                    55% in the Steam Spring Sale!
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://findyourjam.team">FindYourJam.Team</a>
+                </td>
+                <td class="project-desc">A game jam team finder! Helping GMTK jammers find someone to jam with since
+                    2019(ish), and currently expanding to other communities if they find it useful<br/>A complete PITA
+                    to keep caring about, so if you've used it and enjoyed it please let me know!<span
+                            aria-hidden="true" class="cool-badge">♥</span></td>
+            </tr>
+            <tr>
+                <td><a href="https://dotwogames.itch.io">My Itch.io Page</a></td>
+                <td class="project-desc">## My game jam entries, and experiments, prototypes and other jank live here
+                    ##
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <hr aria-hidden="true" class="fancy">
+
+        <h2 class="section-header"><span aria-hidden="true" class="deco">☆</span> LATEST STUFF <span aria-hidden="true"
+                                                                                                     class="deco">☆</span>
+        </h2>
+
+        <div class="latest-section">
+            <div class="latest-card">
+                <h3>Latest Article</h3>
+                <a href="/thoughts/picking-a-gmtk-theme.html">I Don't Understand Data Science</a>
+                <p>How we determined the GMTK Patron Jam theme for 2024. Content warning: contains extremely poor data
+                    science.</p>
+                <span class="type-label">Article (readable styling under development) &rarr;</span>
+            </div>
+            <div class="latest-card">
+                <h3>Latest Talk</h3>
+                <a href="/presentations/how-to-build-software-2025.pdf">How to build software, not write code</a>
+                <p>A mix of general software advice and project-specific prep</p>
+                <span class="type-label">PDF &rarr;</span>
+            </div>
+        </div>
+
+        <hr aria-hidden="true" class="fancy">
+
+        <section aria-labelledby="friends-heading" class="friends-zone">
+            <h2 class="section-header" id="friends-heading"><span aria-hidden="true" class="deco">✦</span> COOL FRIENDS'
+                SITES <span aria-hidden="true" class="deco">✦</span></h2>
+            <div id="friends-grid-parent" class="friends-grid">
+                <!--
+                 <a class="friend-link" href="#friend1">
+                    <div aria-hidden="true" class="placeholder-img">🎮</div>
+                    <span class="friend-name">PixelPal</span>
+                </a>
+                -->
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+    (function () {
+        const $digits = document.getElementById("counter-digits-parent");
+        const visitorNumber = Math.ceil(1000 + (Math.random() * 95_000)).toString().padStart(6, "0");
+        visitorNumber
+            .split("")
+            .forEach(char => {
+                const $digit = document.createElement("span");
+                $digit.classList.add("counter-digit");
+                $digit.innerText = char;
+                $digits.appendChild($digit);
+            });
+
+        const field = document.getElementById('starfield');
+        const frag = document.createDocumentFragment();
+        for (let i = 0; i < 80; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            s.style.left = Math.random() * 100 + '%';
+            s.style.top = Math.random() * 100 + '%';
+            s.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+            s.style.setProperty('--delay', (Math.random() * 3) + 's');
+            if (Math.random() > 0.7) {
+                s.style.width = '3px';
+                s.style.height = '3px';
+            }
+            frag.appendChild(s);
+        }
+        field.appendChild(frag);
+    })();
+
+    // Populate friends :)
+    (async function () {
+        // Fetch webring json array
+        const request = await fetch('https://willdotwhite.github.io/webring/data.json');
+        const webring_array = await request.json();
+
+        const $grid = document.getElementById("friends-grid-parent")
+        for (const friend of webring_array) {
+            if (friend.url === "https://badlydone.dev") continue;
+
+            console.log(friend)
+            const $friend = document.createElement("a");
+            $friend.classList.add("friend-link")
+            $friend.setAttribute("href", friend.url);
+
+            const $label = document.createElement("span");
+            $label.classList.add("friend-name");
+            $label.innerText = friend.name + "\n\n" + friend.description;
+            $friend.appendChild($label)
+
+            $grid.appendChild($friend);
+        }
+    })();
+</script>
