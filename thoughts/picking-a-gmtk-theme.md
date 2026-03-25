@@ -1,9 +1,5 @@
 ---
-#layout: default
-#title: "BADLYDONEDEV"
-#site_title: "&lt;badlydone.dev&gt;"
-#email: will@dotwo.games
-#description: "Words go brr"
+layout: thoughts
 path: /thoughts/picking-a-gmtk-theme
 ---
 # Data Science Experiment
