@@ -399,12 +399,18 @@ hr.fancy {
     padding: 0.6rem;
     text-decoration: none;
     color: var(--neon-cyan);
-    aspect-ratio: 1;
+    aspect-ratio: 2;
     font-size: 0.85rem;
     text-align: center;
     transition: all 0.2s;
     position: relative;
     overflow: hidden;
+}
+
+@media (min-width: 400px) {
+    .friend-link {
+        aspect-ratio: 1;
+    }
 }
 
 .friend-link:hover {
