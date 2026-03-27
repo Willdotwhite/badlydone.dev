@@ -155,3 +155,97 @@ h1, .title-fire {
     display: block;
     margin-bottom: 0.5rem;
 }
+
+
+h2, .section-header {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(0.7rem, 2.5vw, 1rem);
+    color: var(--neon-yellow);
+    text-align: center;
+    margin: 1.5rem 0 1rem;
+    text-shadow: 2px 2px 0 var(--hot-red);
+}
+
+h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+    color: var(--neon-cyan);
+    text-align: center;
+    margin: 1.25rem 0 1rem;
+    text-shadow: 2px 2px 0 var(--link-blue);
+}
+
+hr {
+    border: none;
+    height: 4px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan), var(--neon-green), var(--neon-yellow), var(--neon-pink));
+    margin: 1.5rem 0;
+    animation: rainbow-bg 3s linear infinite;
+}
+
+@keyframes rainbow-bg {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 3px ridge silver;
+    margin: 1rem 0;
+    background: #000033;
+}
+
+table th {
+    background: linear-gradient(180deg, #000080, #000050);
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    padding: 0.6rem;
+    border: 1px solid #0000aa;
+    text-align: left;
+}
+
+table td {
+    padding: 0.6rem;
+    border: 1px solid #333366;
+    vertical-align: top;
+}
+
+table a:hover {
+    color: var(--neon-yellow);
+}
+
+table tr:hover td {
+    background: #000055;
+}
+
+table a {
+    color: var(--link-blue);
+    text-decoration: underline;
+    font-size: 1.1rem;
+}
+
+table a:visited {
+    color: var(--visited-purple);
+}
+
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    border-top: 3px double var(--neon-pink);
+    margin-top: 1.5rem;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+footer .made-with {
+    color: var(--neon-green);
+    margin-bottom: 0.3rem;
+}
