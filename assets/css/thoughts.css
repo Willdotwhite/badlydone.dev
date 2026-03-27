@@ -31,7 +31,7 @@ pre {
     border: 3px ridge var(--neon-cyan);
     padding: 1rem;
     margin: 1rem 0;
-    text-align: center;
+    text-align: left;
     font-size: 1.1rem;
 }
 
@@ -47,4 +47,10 @@ reader-warning {
     &::before {
         content: "--- You might want to use reader mode for this page. I wouldn't blame you. ---";
     }
+}
+
+ul {
+    width: fit-content;
+    padding-left: 1rem;
+    text-align: left;
 }

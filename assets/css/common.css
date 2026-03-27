@@ -114,7 +114,7 @@
 body {
     background-color: var(--star-bg);
     color: var(--neon-cyan);
-    font-family: 'VT323', monospace;
+    font-family: 'Pixelify Sans', monospace;
     font-size: 1.25rem;
     line-height: 1.5;
     overflow-x: hidden;
