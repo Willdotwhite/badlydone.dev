@@ -37,6 +37,10 @@ pre {
 
 .text p {
     margin-bottom: 0.5rem;
+
+    &.small {
+        font-size: 0.8rem;
+    }
 }
 
 reader-warning {
