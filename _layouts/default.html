@@ -8,7 +8,8 @@
 
     <link href="/public/favicon.svg" rel="icon" type="image/x-icon"/>
 
-    <link href="/assets/css/main.css" rel="stylesheet">
+    <link href="/assets/css/common.css" rel="stylesheet">
+    <link href="/assets/css/{{ page.css }}.css" rel="stylesheet">
     <meta content="width=device-width, initial-scale=1" name="viewport">
 
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -20,20 +21,45 @@
 <main class="h-screen container _mx-auto flex flex-col justify-between" style="margin: 0 auto;">
     <header class="text-center"></header>
 
-    <section>
-        {{ content }}
-    </section>
+    <div aria-hidden="true" class="starfield" id="starfield"></div>
 
-    <footer>
-        <div class="guestbook-prompt">
-            Email me: <a href="mailto:will@dotwo.games" class="email-link">will@dotwo.games</a>
-        </div>
+    <div class="page-wrapper">
+        <section>
+            {{ content }}
+        </section>
 
-        <div class="made-with">Made with Jekyll. Filled with mistakes.</div>
-        <div>&copy;badlydonedev. All rights reserved if I ever figure out how.</div>
-        <div>Best viewed at 800x600 | <a href="#top" style="color:#666">Back to top</a></div>
-    </footer>
+        <footer>
+            <div class="guestbook-prompt">
+                Email me: <a href="mailto:will@dotwo.games" class="email-link">will@dotwo.games</a>
+            </div>
+
+            <div class="made-with">Made with Jekyll. Filled with mistakes.</div>
+            <div>&copy;badlydonedev. All rights reserved if I ever figure out how.</div>
+            <div>Best viewed at 800x600 | <a href="#top" style="color:#666">Back to top</a></div>
+        </footer>
+    </div>
 </main>
+
+<script>
+    (function () {
+        const field = document.getElementById('starfield');
+        const frag = document.createDocumentFragment();
+        for (let i = 0; i < 80; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            s.style.left = Math.random() * 100 + '%';
+            s.style.top = Math.random() * 100 + '%';
+            s.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+            s.style.setProperty('--delay', (Math.random() * 3) + 's');
+            if (Math.random() > 0.7) {
+                s.style.width = '3px';
+                s.style.height = '3px';
+            }
+            frag.appendChild(s);
+        }
+        field.appendChild(frag);
+    })();
+</script>
 </body>
 
 </html>

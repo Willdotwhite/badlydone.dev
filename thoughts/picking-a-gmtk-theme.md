@@ -1,5 +1,6 @@
 ---
-layout: thoughts
+layout: default
+css: thoughts
 path: /thoughts/picking-a-gmtk-theme
 ---
 # Data Science Experiment
