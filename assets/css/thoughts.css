@@ -4,9 +4,8 @@ blockquote {
     background: #111a2a;
     color: #b0e0ff;
     margin: 1.5em 0;
-    padding: 0.8em 1.2em;
+    padding: 0.1em 1.2em 0.8em 1.2em;
     font-style: italic;
-    max-width: 55ch;
 }
 
 code, pre {
@@ -14,7 +13,7 @@ code, pre {
     background: #181818;
     color: #39ff14;
     border-radius: 4px;
-    font-size: 1em;
+    font-size: 0.75em;
 }
 
 code {
@@ -25,5 +24,27 @@ pre {
     padding: 1em;
     overflow-x: auto;
     margin: 1.5em 0;
-    font-size: 0.98em;
+}
+
+.text {
+    background: #000033;
+    border: 3px ridge var(--neon-cyan);
+    padding: 1rem;
+    margin: 1rem 0;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.text p {
+    margin-bottom: 0.5rem;
+}
+
+reader-warning {
+    display: block;
+    font-size: 0.95rem;
+    text-align: center;
+
+    &::before {
+        content: "--- You might want to use reader mode for this page. I wouldn't blame you. ---";
+    }
 }

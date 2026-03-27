@@ -5,8 +5,12 @@ path: /thoughts/picking-a-gmtk-theme
 ---
 # Data Science Experiment
 
+---
+<reader-warning></reader-warning>
+
 ## I Don't Understand Data Science
 
+<div class="text">
 Data Science: I don't know how to do it. I get the concepts, I have a hazy memory of various statistics classes from a
 decade or two ago, and I've even brushed up on how a lot of the tech required for a machine learning platform to run
 models and make inference at scale.
@@ -22,9 +26,12 @@ itself, but I'd be able to ask much more insightful questions if I had some expe
 answer.
 
 So let's remedy that shall we?
+</div>
+---
 
 ## The Game Maker's Toolkit Patron Jam
 
+<div class="text">
 I'm a member of the amazing Game Maker's Toolkit (GMTK) Patron community on Discord. This December the community are
 running a seven day game jam (think 'hackathon where everyone makes a game to a theme'), with a theme voted for by the
 community - and, uhh, picked by me!
@@ -35,9 +42,11 @@ Well, that's not quite right; I've been running the theme submission/voting webs
 site! https://themes.badlydone.dev/), and because I won't be participating in the jam itself I'll be the one to announce
 which theme has won the voting. I won't be picking my favourite theme or anything, but just announcing which theme was
 the best as decided by community voting.
+</div>
 
 > ## What Do You Mean By "Theme" Anyway?
 >
+> <div class="text">
 > The theme for a game jam is the inspiration for the games that people are making - it can be basically anything, but
 > the best themes straddle the line between "vague enough to give developers creative control" and "limiting enough that
 > it inspires creativity".
@@ -57,7 +66,9 @@ the best as decided by community voting.
 > So as human with human brains here, we can evaluate our nascent Data Science efforts by judging the top themes from
 > our experiments to judge if they're in the sweet spot of "not too vague to be meaningless" and "not too specific to
 > limit freedom".
+> </div>
 
+<div class="text">
 One small problem: the voting system we picked was... suboptimal.
 
 Well, kind of.
@@ -69,9 +80,11 @@ from the pool, and they rank them from best to worst. We had ~130 people vote, e
 Allowing three themes per person (which Amit, the brains behind the voting system, warned would be a problem) gave us
 way too many options with not enough votes to go around. Once we had three themes per person, limiting each voter to 10
 themes artificially limited how many votes we could spread around. Similar problem to before; a lack of enough data.
+</div>
 
 ### Data Problem #1: We had ~120 people voting on ~240 themes
 
+<div class="text">
 By limiting users to 10 themes to vote across, we've massively limited how many votes each theme can get. For the 200+
 themes in the pool, the most votes a specific theme got was _11_.
 
@@ -81,14 +94,15 @@ themes in scope. As you might imagine, this left me with some pretty suspect num
 How do you pick between a theme which gets four 5-star votes and a theme which gets ten votes of 3, 4, 5?
 
 Well, let's start simple and see where that gets us.
-
+</div>
 ---
 
 ## Trying Stuff And Seeing Why It's Garbage
 
 ### Attempt The First: Raw Score
-
+<div class="text">
 Approach:
+</div>
 
 ```kotlin
 for (theme in themes) {
@@ -97,8 +111,9 @@ for (theme in themes) {
 
 val winningTheme = themes.maxBy { it.score }
 ```
-
+<div class="text">
 Results:
+</div>
 
 | Theme                         | Score | Votes (top: +5, bottom: -4)              |
 |-------------------------------|-------|------------------------------------------|
@@ -114,14 +129,17 @@ Results:
 | (Redacted)                    | -30   | 0, 0, -1, -3, -3, -3, -4, -4, -4, -4, -4 |
 
 
+<div class="text">
 Get all the votes for each theme, sum them together, take the theme with the highest total.
 
 Quick, simple, easy, and hideously biased.
 
 Why? Well, indulge me a quick sidebar:
+</div>
 
 > ### Data Problem #2: The Enormous Range Of Votes Cast
 >
+> <div class="text">
 > Each voter got their themes in the laziest way I could think of:
 >
 > ```
@@ -136,7 +154,8 @@ Why? Well, indulge me a quick sidebar:
 >
 > The problem here is that because we have so many themes, there just weren't enough votes to go around. That normal
 > distribution peaks around 4.5 votes per theme, which just isn't very much information at all.
->
+> </div>
+<div class="text">
 **TLDR: Because the themes have wildly different numbers of votes, the raw score biased too heavily for themes that
 just happened to be seen more.**
 
@@ -145,15 +164,17 @@ just didn't get very many of them. That's a flaw with the voting system, where t
 the bias in their favourite.
 
 Let's try something else...
-
+</div>
 ---
 
 ### Attempt The Second: Average Score
 
+<div class="text">
 High school stats class here I come! Let's try to account for the inconsistent vote totals by calculating the average
 score for each theme, and go from there.
 
 The results:
+</div>
 
 | Theme                        | Average Score | # Of Votes |
 |------------------------------|---------------|------------|
@@ -168,6 +189,7 @@ The results:
 | ...                          | ...           | ...        |
 | (Redacted)                   | -2.7272727    | 11         |
 
+<div class="text">
 Hmm. Well those certainly are _different_, but I'm a bit concerned we've gone too far in the other direction; instead of
 biasing towards themes that happened to be seen by lots of people, it looks like we're now biasing towards themes that
 (by chance) happened to only be seen by a small number of people who really liked the theme.
@@ -178,13 +200,13 @@ defining the "best theme" doesn't quite add up; we've swung too far in the other
 Maybe we can adjust for how many votes each theme got? Multiply the average up or down a bit?
 
 Let's try something else...
-
+</div>
 ---
 
 ### Attempt The Second-Point-Two: Weighted Average Score
 
 [TABLE REDACTED BECAUSE IT WAS POINTLESS]
-
+<div class="text">
 I won't waste your time here; it's like using the average score, but with a multiplier that tries to account for the
 very different numbers of votes. How, you ask?
 
@@ -194,9 +216,11 @@ needed. Trying to corral towards the median just left us with a whole bunch of t
 in either direction.
 
 Trying to figure out what a "good" vote was highlighted the two major fallacies I'd not addressed up until this point:
+</div>
 
 > ### Data Problem #3: The Scores Don't Mean Shit
 >
+> <div class="text">
 > As mentioned at the top, everyone's ranked votes were submitted from +5 to -4 (no, I don't remember why we did this).
 > The ranked voting system means all the votes are submitted relative to each other; there's no way real way to have
 > comparable scores between themes (and between people).
@@ -211,9 +235,11 @@ Trying to figure out what a "good" vote was highlighted the two major fallacies 
 >
 > And even worse: if someone gets one "meh" theme and nine complete stinkers? You better believe those stinkers are
 > scoring just as highly as someone else's 2nd/3rd/4th votes.
+> </div>
 
 > ### Data Problem #3.2: You Can't Do Maths On Relative Numbers
 >
+> <div class="text">
 > I expect any seasoned data scientists reading have been waiting for this clanger to drop for some time now: the
 > numbers are all relative, I shouldn't be trying to directly compare them. If my 3rd place vote was great but not quite
 > excellent, and your 3rd place was the ok-ist of a mediocre bunch, why are we trying to equate those votes together?
@@ -244,18 +270,21 @@ Trying to figure out what a "good" vote was highlighted the two major fallacies 
 > Users 2 and 3 voted "Nothing But Crabs" in the same place, but... are they the same? I don't think we can say that.
 > As mentioned in Data Problem #3, your third place theme and my third place theme are in two totally different frames
 > of reference.
+> </div>
 
+<div class="text">
 There's no way to directly compare the scores themselves. Perhaps we can use the _positions_ of themes to evaluate which
 ones were more popular?
 
 Let's try something else...
-
+</div>
 ---
 
 ### Attempt I Don't Know Which: Relative Positions Table
 
+<div class="text">
 (Fun fact! This may or may not also be a naive implementation of
-a [Bradley-Terry model](https://en.wikipedia.org/wiki/Bradley%E2%80%93Terry_model). I'm honestly not sure.)
+a <a href="https://en.wikipedia.org/wiki/Bradley%E2%80%93Terry_model">Bradley-Terry model</a>. I'm honestly not sure.)
 
 When users rank their votes, the scores themselves are meaningless as scores; all they tell us are the order a specific
 user rated their themes.
@@ -268,6 +297,7 @@ received **as compared to other themes in the same collection of votes**, we cou
 one theme was preferred over another.
 
 This was a bit more involved (read: I had a proper data scientist help me with this), but what we built is this:
+</div>
 
 | Theme (+1 when row appears above column) | The Other Way | Divide and conquer | Return to Sender | ... |
 |------------------------------------------|---------------|--------------------|------------------|-----|
@@ -276,6 +306,7 @@ This was a bit more involved (read: I had a proper data scientist help me with t
 | Return to Sender                         | 1, -1, 1, -1  | 1                  | x                | ... |
 | ...                                      | ...           | ...                | ...              | ... |
 
+<div class="text">
 For every theme, we calculate how often it appeared _above_ every other theme, regardless of the specific position of
 that theme in the list. The thinking being, the theme which comes out on top most consistently against other themes
 would be a strong theme suggestion, even if it didn't always get the highest score possible.
@@ -283,9 +314,11 @@ would be a strong theme suggestion, even if it didn't always get the highest sco
 What we then do is sum up each row of the table: this gives us a numeric score for how often this theme appeared above
 other themes, although I'm honestly not sure what specific terms we can nail down for this! At this point in the hazy
 world of Data Science, I've completely lost track of what technical terms exist, or if I'm just doing... stuff!
+</div>
 
+<div class="text">
 The pseudocode looks like this:
-
+</div>
 ```kotlin
 val dataTable: Map<Pair<String, String>, List<Int>> = builtAsThatTableAbove()
 
@@ -323,9 +356,12 @@ themes appeared on the same list, `16ec8df0` ranked more highly.
 
 The theme that comes out on top compared to the most other themes, most often, seems like a strong contender for the
 best theme.
+</div>
 
+<div class="text">
 In order to convert that concept (and also the variably-lengthed arrays of +1s and -1s) into a sortable format, we can
 calculate a total score for each theme in the following way:
+</div>
 
 ```kotlin
 // This approach isn't very Kotlin-esque, but it's a lot easier to read
@@ -340,11 +376,11 @@ for ((themeIds, arrayOfOffsets) in comparativeVotes) {
     val normalisedOffsetScore = arrayOfOffsets.sum().toFloat() / arrayOfOffsets.size.toFloat()
     scores[themeUnderEvaluation] = scores[themeUnderEvaluation] + normalisedOffsetScore
 }
-
 ```
 
 ### Data Problem #1 (Again):
 
+<div class="text">
 Sadly, we just can't get around the fact that limiting each person to ten themes just doesn't give us enough data to
 work with. When we calculate `dataTable` and build our grid of comparative checks, we see the most that two themes
 appeared in the same list is... 4 times.
@@ -352,6 +388,7 @@ appeared in the same list is... 4 times.
 Each `comparativeVotes` array is bound for the express checkout, with four items or fewer!
 
 The results:
+</div>
 
 | Theme                                                     | Relative Position Score | How many comparisons? | Votes (scale: +5 to -4) | (Total Score) | (Average Score) |
 |-----------------------------------------------------------|-------------------------|-----------------------|-------------------------|---------------|-----------------|
@@ -368,6 +405,7 @@ The results:
 | ...                                                       | ...                     | ...                   | ...                     | ...           | ...             |
 | "" (I forgot to remove this before the voting went live!) | -0.951                  | 41                    | -3, -4, -4, -4, -4      | -19           | -3.8            |
 
+<div class="text">
 Hmm. High average score, but low total score.
 
 While the top theme has a decent total and average score, we're seeing some themes that look as though they should score
@@ -375,11 +413,11 @@ poorly rating quite highly.
 
 The range of "how many times was one theme compared to all other themes?" was 86 at the high end ("-vania"), down to 9
 at the very lowest ("[genre] without [mechanic]"). I have no earthly idea what to do with that information.
-
----
+</div>
 
 ## Attempt The Last: Plackett-Luce model
 
+<div class="text">
 I'm on shaky ground here; throughout this process a wonderful colleague of mine Hollie was supporting me as I figured
 out what questions to ask and how to go about answering them. I was more or less following along, until one morning
 Hollie DM'd me saying "Hey, I tried this model I found online, what do you think?"
@@ -389,7 +427,7 @@ ordering that looked broadly the same as the pairwise approach above, but had mu
 the table.
 
 (The best explanation I found of how the Plackett-Luce model works was
-by [this post by Statistical Odds & Ends](https://statisticaloddsandends.wordpress.com/2024/04/24/what-is-the-plackett-luce-model/),
+by <a href="https://statisticaloddsandends.wordpress.com/2024/04/24/what-is-the-plackett-luce-model/">this post by Statistical Odds & Ends</a>,
 which I highly recommend giving a read.)
 
 Instead of working with pairwise preferences - comparing two themes as though they were the only two things we cared to
@@ -401,8 +439,10 @@ calculated based only on the theme data that is remaining.
 
 It doesn't actually make a different to which theme came in position #1 (which at least validates the pairwise table
 approach!), but it's interesting to see.
-
+</div>
+<div class="text">
 The results:
+</div>
 
 | Theme                        | Score that ranked us here? |
 |------------------------------|----------------------------|
@@ -419,6 +459,7 @@ The results:
 | ...                          | ...                        |
 | "" (This came last here too) | ???                        |
 
+<div class="text">
 So while there's a lot more black box magic than I'd care for, it's very gratifying to see that the order is extremely
 close to the pairwise list above.
 
@@ -429,13 +470,15 @@ Given that I'm only looking to find the single "best" theme to become the theme 
 topped the charts in everything but raw score, it seems like we've got a strong candidate: "Bending the rules".
 
 And, bringing the human factor back into things, what's my gut feel evaluation? It's a good theme! Therefore...
+</div>
+---
 
 ## The Theme For The First GMTK Patron Jam Is... 'Bending The Rules'!
 
 ---
 
 ## Conclusion
-
+<div class="text">
 I had a good time with this - while I don't know if my data science skills are much sharper, I think I'd be
 able to try doing this whole theme-ranking thing again in the future at least!
 
@@ -445,3 +488,4 @@ Oh, and for the next GMTK Patron jam we hold? Either people can vote on as many 
 a benevolent dictator to just pick their favourite from a shortlist.
 
 Until next time!
+</div>
